@@ -3,6 +3,7 @@ env:
   variables:
     REPOSITORY_URI: "536697260132.dkr.ecr.us-east-1.amazonaws.com/prabh/repo"
     AWS_DEFAULT_REGION: "us-east-1"
+    GITHUB_BRANCH: "main"  # Set the branch name to main
 phases:
   install:
     commands:
