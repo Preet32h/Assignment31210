@@ -1,20 +1,19 @@
-# Use an official Python runtime as a parent image
-FROM python:3.8-slim
+FROM python:3.9-slim
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy requirements first to leverage Docker cache during builds
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy the rest of the app
+COPY . ./
 
-# Make port 80 available to the world outside this container
+# Expose port 80 for the application
 EXPOSE 80
 
-# Define environment variable
-ENV NAME World
+# Install Gunicorn for production
+RUN pip install gunicorn
 
-# Run app.py when the container launches 
-CMD ["python", "app.py"]
+# Start the app with Gunicorn
+CMD ["gunicorn", "-b", "0.0.0.0:80", "app:app"]
