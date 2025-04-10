@@ -13,8 +13,11 @@ phases:
     commands:
       - echo Building the Docker image...
       - docker build -t flask-app .
-      - docker tag flask-app:latest 536697260132.dkr.ecr.us-east-1.amazonaws.com/flask-app:latest
+      - docker tag flask-app:latest 536697260132.dkr.ecr.us-east-1.amazonaws.com/assignment3:latest
   post_build:
     commands:
       - echo Pushing the Docker image to ECR...
-      - docker push 536697260132.dkr.ecr.us-east-1.amazonaws.com/flask-app:latest
+      - docker push 536697260132.dkr.ecr.us-east-1.amazonaws.com/assignment3:latest
+  artifacts:
+    files:
+      - imagedefinitions.json
