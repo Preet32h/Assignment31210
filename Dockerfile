@@ -1,10 +1,17 @@
 FROM python:3.9-slim
+ 
 WORKDIR /app
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
+ 
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+ 
+# Copy application code
 COPY . .
+ 
+# Expose the application port
 EXPOSE 5000
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-CMD ["flask", "run"]
-
+ 
+# Run the application
+CMD [ "flask", "run", "--host=0.0.0.0", "--port=5000"]
+ 
